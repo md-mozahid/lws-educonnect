@@ -1,17 +1,20 @@
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
-import { Inter, Poppins } from 'next/font/google'
+import dbConnect from '@/backend/services/mongo'
+import { Inter } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
-const poppins = Poppins({ subsets: ['latin'], variable: '--font-poppins' })
+const poppins = Inter({ subsets: ['latin'], variable: '--font-poppins' })
 
 export const metadata = {
-  title: "Educonnect - world's best Learning Platform",
+  title: "Educonnect - World's best Learning Platform",
   description: 'Explore || Learn || Build || Share',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  await dbConnect()
+
   return (
     <html lang="en">
       <body className={cn(inter.className, poppins.className)}>
