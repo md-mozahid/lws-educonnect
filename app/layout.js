@@ -1,6 +1,6 @@
 import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
-import dbConnect from '@/backend/services/mongo'
+import dbConnect from '@/services/mongo'
 import { Inter } from 'next/font/google'
 import './globals.css'
 
