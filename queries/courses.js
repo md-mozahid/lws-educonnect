@@ -1,63 +1,67 @@
 import {
   replaceMongoIdInArray,
   replaceMongoIdInObject,
-} from '@/lib/convertData'
-import { CategoryModel } from '@/models/categoryModel'
-import { CourseModel } from '@/models/course-model'
-import { ModuleModel } from '@/models/module-model'
-import { TestimonialModel } from '@/models/testimonial-model'
-import { UserModel } from '@/models/user-model'
+} from "@/lib/convertData";
+import { CategoryModel } from "@/models/categoryModel";
+import { CourseModel } from "@/models/course-model";
+import { ModuleModel } from "@/models/module-model";
+import { TestimonialModel } from "@/models/testimonial-model";
+import { UserModel } from "@/models/user-model";
 
 export async function getCourseList() {
   const courses = await CourseModel.find({})
     .select([
-      'title',
-      'subtitle',
-      'thumbnail',
-      'modules',
-      'price',
-      'category',
-      'instructor',
+      "title",
+      "subtitle",
+      "thumbnail",
+      "modules",
+      "price",
+      "category",
+      "instructor",
     ])
     .populate({
-      path: 'category',
+      path: "category",
       model: CategoryModel,
     })
     .populate({
-      path: 'instructor',
+      path: "instructor",
       model: UserModel,
     })
     .populate({
-      path: 'testimonials',
+      path: "testimonials",
       model: TestimonialModel,
     })
     .populate({
-      path: 'modules',
+      path: "modules",
       model: ModuleModel,
     })
-    .lean()
-  return replaceMongoIdInArray(courses)
+    .lean();
+  return replaceMongoIdInArray(courses);
 }
 
 export async function getSingleCourse(id) {
   const course = await CourseModel.findById(id)
     .populate({
-      path: 'category',
+      path: "category",
       model: CategoryModel,
     })
     .populate({
-      path: 'instructor',
+      path: "instructor",
       model: UserModel,
     })
     .populate({
-      path: 'testimonials',
+      path: "testimonials",
       model: TestimonialModel,
+      populate: {
+        path: "user",
+        model: UserModel,
+      },
     })
     .populate({
-      path: 'modules',
+      path: "modules",
       model: ModuleModel,
     })
-    .lean()
+    .lean();
 
-  return replaceMongoIdInObject(course)
+  return replaceMongoIdInObject(course);
 }

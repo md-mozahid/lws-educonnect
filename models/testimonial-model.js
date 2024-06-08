@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from "mongoose";
 
 const testimonialSchema = new Schema({
   content: {
@@ -6,19 +6,19 @@ const testimonialSchema = new Schema({
     type: String,
   },
   user: {
-    required: true,
-    type: String,
+    type: Schema.ObjectId,
+    ref: "User",
   },
   courseId: {
-    required: true,
-    type: String,
+    type: Schema.ObjectId,
+    ref: "Course",
   },
   rating: {
     required: true,
     type: Number,
   },
-})
+});
 
 export const TestimonialModel =
   mongoose.models.Testimonial ??
-  mongoose.model('Testimonial', testimonialSchema)
+  mongoose.model("Testimonial", testimonialSchema);

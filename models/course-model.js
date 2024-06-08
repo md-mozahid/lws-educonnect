@@ -38,8 +38,8 @@ const courseSchema = new Schema({
   },
 
   quizzes: {
-    required: false,
     type: Schema.ObjectId,
+    ref: 'Quizset'
   },
 
   testimonials: [
