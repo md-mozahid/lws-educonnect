@@ -12,29 +12,75 @@ import { ArrowRight, BookOpen } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function RelatedCourse({ courses }) {
+const courses = [
+  {
+    id: 1,
+    title: 'Design',
+    thumbnail: '/assets/images/categories/design.jpg',
+  },
+
+  {
+    id: 3,
+    title: 'Development',
+    thumbnail: '/assets/images/categories/development.jpg',
+  },
+  {
+    id: 4,
+    title: 'Marketing',
+    thumbnail: '/assets/images/categories/marketing.jpg',
+  },
+  {
+    id: 5,
+    title: 'IT & Software',
+    thumbnail: '/assets/images/categories/it_software.jpg',
+  },
+  {
+    id: 6,
+    title: 'Personal Development',
+    thumbnail: '/assets/images/categories/personal_development.jpg',
+  },
+  {
+    id: 7,
+    title: 'Business',
+    thumbnail: '/assets/images/categories/business.jpg',
+  },
+  {
+    id: 8,
+    title: 'Photography',
+    thumbnail: '/assets/images/categories/photography.jpg',
+  },
+  {
+    id: 9,
+    title: 'Music',
+    thumbnail: '/assets/images/categories/music.jpg',
+  },
+]
+
+export default function RelatedCourse() {
   return (
     <section className="">
       <div className="container">
         <SectionTitle className="mb-6">Related Courses</SectionTitle>
         <Carousel
           opts={{
-            align: 'start',
+            align: "start",
           }}
-          className="max-2xl:w-[90%] w-full mx-auto">
+          className="max-2xl:w-[90%] w-full mx-auto"
+        >
           <CarouselPrevious />
           <CarouselNext />
           <CarouselContent>
             {courses.map((course) => (
               <CarouselItem
                 key={course.id}
-                className="md:basis-1/2 lg:basis-1/3">
+                className="md:basis-1/2 lg:basis-1/3"
+              >
                 <Link href={`/courses/${course.id}`}>
                   <div className="group hover:shadow-sm transition overflow-hidden border rounded-lg p-3 h-full">
                     <div className="relative w-full aspect-video rounded-md overflow-hidden">
                       <Image
                         src="/assets/images/courses/course_1.png"
-                        alt={'course'}
+                        alt={"course"}
                         className="object-cover"
                         fill
                       />
@@ -62,7 +108,8 @@ export default function RelatedCourse({ courses }) {
 
                         <Button
                           variant="ghost"
-                          className="text-xs text-sky-700 h-7 gap-1">
+                          className="text-xs text-sky-700 h-7 gap-1"
+                        >
                           Enroll
                           <ArrowRight className="w-3" />
                         </Button>
@@ -76,5 +123,5 @@ export default function RelatedCourse({ courses }) {
         </Carousel>
       </div>
     </section>
-  )
+  );
 }
