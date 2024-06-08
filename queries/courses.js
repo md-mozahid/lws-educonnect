@@ -1,4 +1,7 @@
-import { replaceMongoIdInArray } from '@/lib/convertData'
+import {
+  replaceMongoIdInArray,
+  replaceMongoIdInObject,
+} from '@/lib/convertData'
 import { CategoryModel } from '@/models/categoryModel'
 import { CourseModel } from '@/models/course-model'
 import { ModuleModel } from '@/models/module-model'
@@ -34,4 +37,27 @@ export async function getCourseList() {
     })
     .lean()
   return replaceMongoIdInArray(courses)
+}
+
+export async function getSingleCourse(id) {
+  const course = await CourseModel.findById(id)
+    .populate({
+      path: 'category',
+      model: CategoryModel,
+    })
+    .populate({
+      path: 'instructor',
+      model: UserModel,
+    })
+    .populate({
+      path: 'testimonials',
+      model: TestimonialModel,
+    })
+    .populate({
+      path: 'modules',
+      model: ModuleModel,
+    })
+    .lean()
+
+  return replaceMongoIdInObject(course)
 }
