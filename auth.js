@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { UserModel } from "./models/user-model";
 import bcrypt from "bcryptjs";
+import { authConfig } from "./auth.config";
 
 export const {
   auth,
@@ -9,6 +10,7 @@ export const {
   signOut,
   handlers: { GET, POST },
 } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
