@@ -1,30 +1,49 @@
-"use client";
+'use client'
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { MobileNav } from "@/components/mobile-nav";
-import { Logo } from "./logo";
-import { X, Menu } from "lucide-react";
-import { Button, buttonVariants } from "./ui/button";
+import { MobileNav } from '@/components/mobile-nav'
+import { cn } from '@/lib/utils'
+import { Menu, X } from 'lucide-react'
+import { signOut, useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import { Logo } from './logo'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Button, buttonVariants } from './ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { useSession, signOut } from "next-auth/react";
+} from './ui/dropdown-menu'
 
-export function MainNav({ items, children }) {
-  const { data: session } = useSession();
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [loginSession, setLoginSession] = useState(null);
+const navLinks = [
+  {
+    title: 'Features',
+    href: '/features',
+  },
+  {
+    title: 'Pricing',
+    href: '/pricing',
+  },
+  {
+    title: 'Blog',
+    href: '/blog',
+  },
+  {
+    title: 'Documentation',
+    href: '/docs',
+  },
+]
+
+export function MainNav({ children }) {
+  const { data: session } = useSession()
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [loginSession, setLoginSession] = useState(null)
   // console.log("loginSession", loginSession);
 
   useEffect(() => {
-    setLoginSession(session);
-  }, [session]);
+    setLoginSession(session)
+  }, [session])
 
   return (
     <>
@@ -32,16 +51,15 @@ export function MainNav({ items, children }) {
         <Link href="/">
           <Logo />
         </Link>
-        {items?.length ? (
+        {navLinks?.length ? (
           <nav className="hidden gap-6 lg:flex">
-            {items?.map((item, index) => (
+            {navLinks?.map((item, index) => (
               <Link
                 key={index}
-                href={item.disabled ? "#" : item.href}
+                href={item.disabled ? '#' : item.href}
                 className={cn(
-                  "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm"
-                )}
-              >
+                  'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'
+                )}>
                 {item.title}
               </Link>
             ))}
@@ -57,8 +75,7 @@ export function MainNav({ items, children }) {
           <div className="items-center gap-3 hidden lg:flex">
             <Link
               href="/login"
-              className={cn(buttonVariants({ size: "sm" }), "px-4")}
-            >
+              className={cn(buttonVariants({ size: 'sm' }), 'px-4')}>
               Login
             </Link>
             <DropdownMenu>
@@ -111,11 +128,10 @@ export function MainNav({ items, children }) {
         </DropdownMenu>
         <button
           className="flex items-center space-x-2 lg:hidden"
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
-        >
+          onClick={() => setShowMobileMenu(!showMobileMenu)}>
           {showMobileMenu ? <X /> : <Menu />}
         </button>
       </nav>
     </>
-  );
+  )
 }
