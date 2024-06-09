@@ -31,9 +31,6 @@ export default function CourseCurriculum({ modules }) {
           <Clock10 className="w-4 h-4" />
           {(totalDuration / 60).toFixed(2)} Hours
         </span>
-        <span className="flex items-center gap-1.5">
-          <Radio className="w-4 h-4" />4 Live Class
-        </span>
       </div>
 
       {/* contents */}
