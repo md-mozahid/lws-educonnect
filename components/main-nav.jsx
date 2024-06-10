@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
+import { redirect } from 'next/navigation'
 
 const navLinks = [
   {
@@ -40,10 +41,15 @@ export function MainNav({ children }) {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [loginSession, setLoginSession] = useState(null)
   // console.log("loginSession", loginSession);
+  // console.log(session)
 
-  useEffect(() => {
-    setLoginSession(session)
-  }, [session])
+  if (session?.error === "RefreshAccessTokenError") {
+    redirect('/login')
+  }
+
+    useEffect(() => {
+      setLoginSession(session);
+    }, [session]);
 
   return (
     <>
