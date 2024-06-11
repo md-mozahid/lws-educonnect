@@ -79,9 +79,9 @@ export async function getCourseDetailsByInstructor(instructorId) {
     })
   )
   // find total enrollment
-  const totalEnrollments = enrollments.reduce((item, currentValue) => {
-    return item.length + currentValue.length
-  })
+  const totalEnrollments = enrollments.reduce((acc, obj) => {
+    return acc + obj.length
+  }, 0)
 
   // find total reviews
   const testimonials = await Promise.all(

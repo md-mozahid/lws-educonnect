@@ -23,7 +23,7 @@ export function LoginForm() {
       await Login(formData);
       router.push("/courses");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   return (
@@ -63,7 +63,7 @@ export function LoginForm() {
         </form>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="register" className="underline">
+          <Link href="/register/student" className="underline">
             Register
           </Link>
         </div>

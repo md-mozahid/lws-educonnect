@@ -3,6 +3,7 @@
 import { signIn } from "@/auth";
 
 export async function Login(formData) {
+  // console.log(formData)
   try {
     const response = await signIn("credentials", {
       email: formData.get("email"),
@@ -11,7 +12,7 @@ export async function Login(formData) {
     });
     return response;
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 }
 
