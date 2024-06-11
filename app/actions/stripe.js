@@ -3,7 +3,7 @@
 import { stripe } from '@/lib/stripe'
 import { formatAmountForStripe } from '@/lib/stripe-helpers'
 import { headers } from 'next/headers'
-const CURRENCY = 'inr'
+const CURRENCY = 'BDT'
 
 export async function createCheckoutSession(data) {
   const ui_mode = 'hosted'
