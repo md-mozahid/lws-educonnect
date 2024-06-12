@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -12,12 +12,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export function SignUpForm({role}) {
+export function SignUpForm({ role }) {
+  const [error, setError] = useState("");
   const router = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const formData = new FormData(e.currentTarget);
 
@@ -28,10 +29,12 @@ export function SignUpForm({role}) {
       const userRole =
         role === "student" || role === "instructor" ? role : "student";
 
+      // console.log(firstName, lastName, email, password, userRole)
+
       const response = await fetch("/api/register", {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           firstName,
@@ -41,9 +44,9 @@ export function SignUpForm({role}) {
           userRole,
         }),
       });
-
       response.status === 201 && router.push("/login");
     } catch (error) {
+      setError(error.message);
       console.log(error.message);
     }
   };
@@ -52,7 +55,8 @@ export function SignUpForm({role}) {
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
-          Enter your information to create an account
+          Enter your information to create an account <br />
+          {error}
         </CardDescription>
       </CardHeader>
       <CardContent>

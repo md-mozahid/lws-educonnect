@@ -6,7 +6,8 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
   await dbConnect();
   const { firstName, lastName, email, password, userRole } =
-    await request.json();
+  await request.json();
+  console.log(firstName, lastName, email, password, userRole);
 
   const hashedPassword = await bcrypt.hash(password, 5);
 
@@ -17,7 +18,7 @@ export async function POST(request) {
     password: hashedPassword,
     role: userRole,
   };
-//   console.log("new user", newUser);
+  // console.log("new user", newUser);
 
   try {
     await UserModel.create(newUser);

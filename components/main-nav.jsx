@@ -15,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const navLinks = [
   {
@@ -37,6 +37,7 @@ const navLinks = [
 ]
 
 export function MainNav({ children }) {
+  const router= useRouter()
   const { data: session } = useSession()
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [loginSession, setLoginSession] = useState(null)
@@ -44,7 +45,7 @@ export function MainNav({ children }) {
   // console.log(session)
 
   if (session?.error === "RefreshAccessTokenError") {
-    redirect('/login')
+    router.push('/login')
   }
 
     useEffect(() => {
@@ -62,18 +63,19 @@ export function MainNav({ children }) {
             {navLinks?.map((item, index) => (
               <Link
                 key={index}
-                href={item.disabled ? '#' : item.href}
+                href={item.disabled ? "#" : item.href}
                 className={cn(
-                  'flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm'
-                )}>
+                  "flex items-center text-lg font-medium transition-colors hover:text-foreground/80 sm:text-sm"
+                )}
+              >
                 {item.title}
               </Link>
             ))}
           </nav>
         ) : null}
 
-        {showMobileMenu && items && (
-          <MobileNav items={items}>{children}</MobileNav>
+        {showMobileMenu && navLinks && (
+          <MobileNav items={navLinks}>{children}</MobileNav>
         )}
       </div>
       <nav className="flex items-center gap-3">
@@ -81,7 +83,8 @@ export function MainNav({ children }) {
           <div className="items-center gap-3 hidden lg:flex">
             <Link
               href="/login"
-              className={cn(buttonVariants({ size: 'sm' }), 'px-4')}>
+              className={cn(buttonVariants({ size: "sm" }), "px-4")}
+            >
               Login
             </Link>
             <DropdownMenu>
@@ -134,10 +137,11 @@ export function MainNav({ children }) {
         </DropdownMenu>
         <button
           className="flex items-center space-x-2 lg:hidden"
-          onClick={() => setShowMobileMenu(!showMobileMenu)}>
+          onClick={() => setShowMobileMenu(!showMobileMenu)}
+        >
           {showMobileMenu ? <X /> : <Menu />}
         </button>
       </nav>
     </>
-  )
+  );
 }

@@ -5,7 +5,7 @@ import { UserModel } from "./models/user-model";
 import bcrypt from "bcryptjs";
 import { authConfig } from "./auth.config";
 
-/*
+
 async function refreshAccessToken(token) {
   try {
     const url =
@@ -44,7 +44,7 @@ async function refreshAccessToken(token) {
       error: "RefreshAccessTokenError",
     };
   }
-}*/
+}
 
 export const {
   auth,
